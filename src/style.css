@@ -753,6 +753,23 @@ img {
   background: var(--bg-elevated);
 }
 
+.case--link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.case--link:hover {
+  border-color: rgba(56, 189, 248, 0.35);
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.12);
+}
+
+.case--link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
 .case__visual {
   height: 140px;
   background-size: cover;
@@ -769,6 +786,12 @@ img {
   background: linear-gradient(135deg, #1a3d35, #0f172a);
 }
 
+.case__visual--portfolio {
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 40%, rgba(244, 114, 182, 0.18), transparent 55%),
+    linear-gradient(135deg, #3d2a32, #141018 55%, #0a0d12);
+}
+
 .case__title {
   margin: 1rem 1.1rem 0.25rem;
   font-size: 1.05rem;
@@ -778,6 +801,23 @@ img {
   margin: 0 1.1rem 1.1rem;
   color: var(--muted);
   font-size: 0.88rem;
+}
+
+.case--link .case__meta {
+  margin-bottom: 0.5rem;
+}
+
+.case__cta {
+  display: block;
+  margin: 0 1.1rem 1.1rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.case--link:hover .case__cta {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 /* CTA band */
