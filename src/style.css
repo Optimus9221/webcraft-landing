@@ -792,6 +792,13 @@ img {
     linear-gradient(135deg, #3d2a32, #141018 55%, #0a0d12);
 }
 
+.case__visual--store {
+  background:
+    radial-gradient(circle at 78% 28%, rgba(56, 189, 248, 0.22), transparent 45%),
+    radial-gradient(circle at 22% 72%, rgba(148, 163, 184, 0.12), transparent 40%),
+    linear-gradient(145deg, #0c1829, #0a0f18 50%, #111827);
+}
+
 .case__title {
   margin: 1rem 1.1rem 0.25rem;
   font-size: 1.05rem;
