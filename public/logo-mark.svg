@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="op-stroke" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#38bdf8"/>
+      <stop offset="1" stop-color="#a78bfa"/>
+    </linearGradient>
+    <linearGradient id="op-glow" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#38bdf8" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#a78bfa" stop-opacity="0.2"/>
+    </linearGradient>
+  </defs>
+  <path
+    d="M36 7 61.98 22v28L36 65 10.02 50V22L36 7z"
+    stroke="url(#op-glow)"
+    stroke-width="5"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M36 9 59.98 22.87v26.26L36 63 12.02 49.13V22.87L36 9z"
+    fill="#0a1018"
+    stroke="url(#op-stroke)"
+    stroke-width="2"
+    stroke-linejoin="round"
+  />
+  <!-- monogram OP (system UI font — works as <img>) -->
+  <text
+    x="36"
+    y="33"
+    text-anchor="middle"
+    font-family="system-ui, -apple-system, 'Segoe UI', sans-serif"
+    font-size="15"
+    font-weight="800"
+    fill="#f1f5f9"
+    letter-spacing="-0.06em"
+  >OP</text>
+  <!-- </> -->
+  <path
+    d="M28.2 45.2 24 49.4l4.2 4.2M43.8 45.2 48 49.4l-4.2 4.2M37.2 43l-2.4 12.8"
+    stroke="#38bdf8"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>
