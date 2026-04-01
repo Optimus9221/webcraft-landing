@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Optimus Project — штамп для клієнтських сайтів</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 42rem;
+        margin: 2rem auto;
+        padding: 0 1.25rem;
+        line-height: 1.55;
+      }
+      h1 {
+        font-size: 1.35rem;
+      }
+      .panel {
+        padding: 1rem 1.25rem;
+        border-radius: 10px;
+        margin: 1rem 0;
+      }
+      .panel--light {
+        background: #f1f5f9;
+        color: #0f172a;
+      }
+      .panel--dark {
+        background: #0f172a;
+        color: #e2e8f0;
+      }
+      pre {
+        overflow: auto;
+        font-size: 0.8rem;
+        padding: 1rem;
+        background: #1e293b;
+        color: #e2e8f0;
+        border-radius: 8px;
+      }
+      code {
+        font-size: 0.88em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Штамп Optimus Project</h1>
+    <p>
+      Правильна англійська форма — <strong>Developed by</strong> (не «Develop by»). Українською зручно
+      писати <strong>Розроблено</strong> + знак.
+    </p>
+    <ul>
+      <li>
+        <code>optimus-stamp-light-theme.svg</code> — футер на <strong>світлому</strong> тлі клієнта
+      </li>
+      <li>
+        <code>optimus-stamp-dark-theme.svg</code> — футер на <strong>темному</strong> тлі
+      </li>
+      <li>Варіанти з <code>-uk.svg</code> — той самий зміст, текст «Розроблено».</li>
+    </ul>
+
+    <div class="panel panel--light">
+      <p style="margin: 0 0 0.75rem; font-size: 0.85rem">Світла тема сайту</p>
+      <img src="./optimus-stamp-light-theme.svg" alt="" height="28" style="width: auto; display: block" />
+    </div>
+    <div class="panel panel--dark">
+      <p style="margin: 0 0 0.75rem; font-size: 0.85rem; opacity: 0.85">Темна тема сайту</p>
+      <img src="./optimus-stamp-dark-theme.svg" alt="" height="28" style="width: auto; display: block" />
+    </div>
+
+    <h2>Фрагмент для вставки (заміни URL на свій основний сайт)</h2>
+    <pre><code>&lt;!-- Темний футер клієнта --&gt;
+&lt;a
+  href="https://ТВІЙ-ДОМЕН/"
+  target="_blank"
+  rel="noopener noreferrer"
+  style="display:inline-flex;align-items:center;opacity:0.85;text-decoration:none"
+&gt;
+  &lt;img
+    src="https://ТВІЙ-ДОМЕН/stamp/optimus-stamp-dark-theme.svg"
+    alt="Optimus Project"
+    height="26"
+    width="163"
+    decoding="async"
+  /&gt;
+&lt;/a&gt;
+
+&lt;!-- Світлий футер клієнта --&gt;
+&lt;a href="https://ТВІЙ-ДОМЕН/" target="_blank" rel="noopener noreferrer"
+  style="display:inline-flex;align-items:center;opacity:0.9;text-decoration:none"&gt;
+  &lt;img
+    src="https://ТВІЙ-ДОМЕН/stamp/optimus-stamp-light-theme.svg"
+    alt="Optimus Project"
+    height="26"
+    width="163"
+    decoding="async"
+  /&gt;
+&lt;/a&gt;</code></pre>
+    <p style="font-size: 0.9rem; color: #64748b">
+      Можна скопіювати файли з папки <code>/stamp/</code> у проєкт клієнта й підставити відносний шлях
+      замість повного URL.
+    </p>
+  </body>
+</html>
