@@ -3,6 +3,50 @@ import './style.css'
 const prefersReducedMotion = () =>
   window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
+/** Наступний календарний місяць у часовому поясі Києва (1–12). */
+function nextCalendarMonthKyiv() {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Europe/Kyiv',
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+  }).formatToParts(new Date())
+  const y = Number(parts.find((p) => p.type === 'year')?.value)
+  const m = Number(parts.find((p) => p.type === 'month')?.value)
+  if (!Number.isFinite(y) || !Number.isFinite(m)) {
+    const d = new Date()
+    const next = new Date(d.getFullYear(), d.getMonth() + 1, 1)
+    return { year: next.getFullYear(), month: next.getMonth() + 1 }
+  }
+  let month = m + 1
+  let year = y
+  if (month > 12) {
+    month = 1
+    year += 1
+  }
+  return { year, month }
+}
+
+function initNextMonthBadge() {
+  const host = document.querySelector('[data-next-month-badge]')
+  if (!host) return
+
+  const { year, month } = nextCalendarMonthKyiv()
+  const label = new Date(Date.UTC(year, month - 1, 1))
+  const monthName = new Intl.DateTimeFormat('uk-UA', {
+    month: 'long',
+    timeZone: 'UTC',
+  }).format(label)
+  const iso = `${year}-${String(month).padStart(2, '0')}`
+
+  host.textContent = ''
+  host.append('Прийом заявок на ')
+  const time = document.createElement('time')
+  time.dateTime = iso
+  time.textContent = `${monthName} ${year}`
+  host.append(time)
+}
+
 /** @param {HTMLElement} header */
 function initHeader(header) {
   const onScroll = () => {
@@ -151,6 +195,7 @@ function initForm() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  initNextMonthBadge()
   const header = document.querySelector('.header')
   if (header) initHeader(header)
   initNav()
