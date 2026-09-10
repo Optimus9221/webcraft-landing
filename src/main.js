@@ -372,17 +372,17 @@ function initOrbit() {
       const y = Math.cos(theta) * ry
       const z = Math.cos(theta) * rz
       const depth = (z + rz) / (2 * rz)
-      const scale = 0.68 + depth * 0.4
-      const opacity = 0.35 + depth * 0.65
-      const blur = (1 - depth) * 0.9
-      const behindPlanet = depth < 0.48
+      const behindPlanet = depth < 0.46
+      const scale = behindPlanet ? 0.58 + depth * 0.2 : 0.82 + depth * 0.26
+      const opacity = behindPlanet ? 0.12 + depth * 0.2 : 0.9 + depth * 0.1
+      const blur = behindPlanet ? 1.2 : 0
 
       item.style.transform = `translate3d(calc(-50% + ${x}px), calc(-50% + ${y}px), ${z}px) scale(${scale})`
-      item.style.opacity = String(opacity)
+      item.style.opacity = String(Math.min(1, opacity))
       item.style.zIndex = behindPlanet
         ? String(Math.round(2 + depth * 14))
         : String(Math.round(22 + depth * 20))
-      item.style.filter = blur > 0.25 ? `blur(${blur.toFixed(2)}px)` : 'none'
+      item.style.filter = blur ? `blur(${blur.toFixed(1)}px)` : 'none'
       item.style.pointerEvents = behindPlanet ? 'none' : 'auto'
       item.classList.toggle('is-front', i === active)
       item.classList.toggle('is-behind', behindPlanet)
