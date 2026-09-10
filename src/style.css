@@ -983,7 +983,7 @@ a {
   text-decoration: none;
   color: inherit;
   transform-style: preserve-3d;
-  will-change: transform, opacity;
+  will-change: transform, opacity, filter;
 }
 
 .sat__card {
