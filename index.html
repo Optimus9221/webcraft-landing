@@ -229,31 +229,45 @@
       <section class="cases section" id="cases">
         <div class="container">
           <div class="cases__head reveal" data-reveal>
+            <p class="eyebrow">Портфоліо</p>
             <h2 class="section-title">Кейси</h2>
             <p class="section-lead">
-              Проєкти на орбіті Optimus — наведіть, щоб зупинити, клікніть, щоб відкрити сайт
+              Проєкти на орбіті Optimus — наведіть, щоб зупинити, клікніть, щоб відкрити сайт.
+              <span class="cases__lead-mobile"> На телефоні — гортайте стрічку кейсів.</span>
             </p>
           </div>
 
           <div class="orbit reveal" data-reveal data-orbit>
-            <div class="orbit__stage">
-              <div class="orbit__planet" aria-hidden="true">
-                <span class="orbit__core"></span>
-                <span class="orbit__glow"></span>
-                <strong>OP</strong>
-                <em>Optimus</em>
-              </div>
+            <div class="orbit__space" aria-hidden="true"></div>
 
-              <div class="orbit__track" data-orbit-track>
+            <div class="orbit__stage">
+              <button class="orbit__nav orbit__nav--prev" type="button" data-orbit-prev aria-label="Попередній кейс">
+                ‹
+              </button>
+              <button class="orbit__nav orbit__nav--next" type="button" data-orbit-next aria-label="Наступний кейс">
+                ›
+              </button>
+
+              <div class="orbit__ring" aria-hidden="true"></div>
+              <div class="orbit__ring orbit__ring--soft" aria-hidden="true"></div>
+
+              <div class="orbit__world" data-orbit-world>
+                <div class="orbit__planet" aria-hidden="true">
+                  <span class="orbit__atm"></span>
+                  <span class="orbit__globe"></span>
+                  <span class="orbit__shade"></span>
+                </div>
+
                 <a
                   class="sat"
-                  style="--a: 0deg"
                   href="https://khailova-portfolio.vercel.app/"
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-orbit-item
                 >
-                  <span class="sat__counter">
-                    <span class="sat__frame">
+                  <span class="sat__card">
+                    <span class="sat__tag">Фото</span>
+                    <span class="sat__media">
                       <img
                         class="sat__shot"
                         src="/cases/portfolio.jpg"
@@ -263,24 +277,25 @@
                         loading="lazy"
                         decoding="async"
                       />
-                      <span class="sat__chrome" aria-hidden="true"><i></i><i></i><i></i></span>
                     </span>
-                    <span class="sat__label">
+                    <span class="sat__body">
                       <strong>Аліна Хайлова</strong>
                       <em>Портфоліо фотографа</em>
                     </span>
+                    <span class="sat__go" aria-hidden="true">→</span>
                   </span>
                 </a>
 
                 <a
                   class="sat"
-                  style="--a: 120deg"
                   href="https://mak.in.ua/"
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-orbit-item
                 >
-                  <span class="sat__counter">
-                    <span class="sat__frame">
+                  <span class="sat__card">
+                    <span class="sat__tag">Сайт</span>
+                    <span class="sat__media">
                       <img
                         class="sat__shot"
                         src="/cases/academy.jpg"
@@ -290,24 +305,25 @@
                         loading="lazy"
                         decoding="async"
                       />
-                      <span class="sat__chrome" aria-hidden="true"><i></i><i></i><i></i></span>
                     </span>
-                    <span class="sat__label">
+                    <span class="sat__body">
                       <strong>Академія Козацтва</strong>
                       <em>mak.in.ua · 10 мов</em>
                     </span>
+                    <span class="sat__go" aria-hidden="true">→</span>
                   </span>
                 </a>
 
                 <a
                   class="sat"
-                  style="--a: 240deg"
                   href="https://iphone-dropship.vercel.app/"
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-orbit-item
                 >
-                  <span class="sat__counter">
-                    <span class="sat__frame">
+                  <span class="sat__card">
+                    <span class="sat__tag">Магазин</span>
+                    <span class="sat__media">
                       <img
                         class="sat__shot"
                         src="/cases/store.jpg"
@@ -317,37 +333,125 @@
                         loading="lazy"
                         decoding="async"
                       />
-                      <span class="sat__chrome" aria-hidden="true"><i></i><i></i><i></i></span>
                     </span>
-                    <span class="sat__label">
+                    <span class="sat__body">
                       <strong>PhoneFree Store</strong>
                       <em>Каталог · кешбек · UK/EN/RU</em>
                     </span>
+                    <span class="sat__go" aria-hidden="true">→</span>
+                  </span>
+                </a>
+
+                <a class="sat sat--wip" href="#contact" data-orbit-item>
+                  <span class="sat__card">
+                    <span class="sat__tag sat__tag--wip">В роботі</span>
+                    <span class="sat__media sat__media--stub sat__media--edu" aria-hidden="true">
+                      <span>Edu</span>
+                    </span>
+                    <span class="sat__body">
+                      <strong>Освітній corp</strong>
+                      <em>UX · багатомовність · заявки</em>
+                    </span>
+                    <span class="sat__go" aria-hidden="true">→</span>
+                  </span>
+                </a>
+
+                <a class="sat sat--wip" href="#contact" data-orbit-item>
+                  <span class="sat__card">
+                    <span class="sat__tag sat__tag--wip">В роботі</span>
+                    <span class="sat__media sat__media--stub sat__media--funnel" aria-hidden="true">
+                      <span>Funnel</span>
+                    </span>
+                    <span class="sat__body">
+                      <strong>Ad Funnel</strong>
+                      <em>Лендинг під рекламний запуск</em>
+                    </span>
+                    <span class="sat__go" aria-hidden="true">→</span>
+                  </span>
+                </a>
+
+                <a class="sat sat--wip" href="#contact" data-orbit-item>
+                  <span class="sat__card">
+                    <span class="sat__tag sat__tag--wip">В роботі</span>
+                    <span class="sat__media sat__media--stub sat__media--shop" aria-hidden="true">
+                      <span>Shop+</span>
+                    </span>
+                    <span class="sat__body">
+                      <strong>E-com Boost</strong>
+                      <em>Швидкість · цілі · A/B-блоки</em>
+                    </span>
+                    <span class="sat__go" aria-hidden="true">→</span>
+                  </span>
+                </a>
+
+                <a class="sat sat--wip" href="#contact" data-orbit-item>
+                  <span class="sat__card">
+                    <span class="sat__tag sat__tag--wip">В роботі</span>
+                    <span class="sat__media sat__media--stub sat__media--clinic" aria-hidden="true">
+                      <span>Clinic</span>
+                    </span>
+                    <span class="sat__body">
+                      <strong>Nord Clinic</strong>
+                      <em>Запис онлайн · послуги · відгуки</em>
+                    </span>
+                    <span class="sat__go" aria-hidden="true">→</span>
+                  </span>
+                </a>
+
+                <a class="sat sat--wip" href="#contact" data-orbit-item>
+                  <span class="sat__card">
+                    <span class="sat__tag sat__tag--wip">Концепт</span>
+                    <span class="sat__media sat__media--stub sat__media--atelier" aria-hidden="true">
+                      <span>Atelier</span>
+                    </span>
+                    <span class="sat__body">
+                      <strong>Atelier Light</strong>
+                      <em>Студія інтерʼєру · галерея</em>
+                    </span>
+                    <span class="sat__go" aria-hidden="true">→</span>
                   </span>
                 </a>
               </div>
-
-              <div class="orbit__ring" aria-hidden="true"></div>
-              <div class="orbit__ring orbit__ring--soft" aria-hidden="true"></div>
             </div>
 
-            <ul class="orbit__legend">
-              <li>
-                <a href="https://khailova-portfolio.vercel.app/" target="_blank" rel="noopener noreferrer">
-                  01 · Портфоліо
-                </a>
-              </li>
-              <li>
-                <a href="https://mak.in.ua/" target="_blank" rel="noopener noreferrer">
-                  02 · МАК
-                </a>
-              </li>
-              <li>
-                <a href="https://iphone-dropship.vercel.app/" target="_blank" rel="noopener noreferrer">
-                  03 · Store
-                </a>
-              </li>
-            </ul>
+            <div class="orbit__legend" data-orbit-legend>
+              <div class="orbit__bars" aria-hidden="true">
+                <span data-orbit-bar></span>
+                <span data-orbit-bar></span>
+                <span data-orbit-bar></span>
+                <span data-orbit-bar></span>
+                <span data-orbit-bar></span>
+                <span data-orbit-bar></span>
+                <span data-orbit-bar></span>
+                <span data-orbit-bar></span>
+              </div>
+              <ul class="orbit__links">
+                <li>
+                  <button type="button" class="is-active" data-orbit-jump="0">01 · Портфоліо</button>
+                </li>
+                <li>
+                  <button type="button" data-orbit-jump="1">02 · МАК</button>
+                </li>
+                <li>
+                  <button type="button" data-orbit-jump="2">03 · Store</button>
+                </li>
+                <li>
+                  <button type="button" data-orbit-jump="3">04 · Edu</button>
+                </li>
+                <li>
+                  <button type="button" data-orbit-jump="4">05 · Funnel</button>
+                </li>
+                <li>
+                  <button type="button" data-orbit-jump="5">06 · Shop+</button>
+                </li>
+                <li>
+                  <button type="button" data-orbit-jump="6">07 · Clinic</button>
+                </li>
+                <li>
+                  <button type="button" data-orbit-jump="7">08 · Atelier</button>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>

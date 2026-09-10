@@ -309,10 +309,223 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function initOrbit() {
   const root = document.querySelector('[data-orbit]')
-  if (!root) return
-  if (prefersReducedMotion()) {
-    root.classList.add('is-paused')
+  if (!(root instanceof HTMLElement)) return
+
+  const stage = root.querySelector('.orbit__stage')
+  const world = root.querySelector('[data-orbit-world]')
+  const items = /** @type {HTMLElement[]} */ ([...root.querySelectorAll('[data-orbit-item]')])
+  const jumps = /** @type {HTMLButtonElement[]} */ ([...root.querySelectorAll('[data-orbit-jump]')])
+  const bars = /** @type {HTMLElement[]} */ ([...root.querySelectorAll('[data-orbit-bar]')])
+  const prev = root.querySelector('[data-orbit-prev]')
+  const next = root.querySelector('[data-orbit-next]')
+
+  if (!stage || !(world instanceof HTMLElement) || items.length === 0) return
+
+  const reduced = prefersReducedMotion()
+  const mobileMQ = window.matchMedia('(max-width: 720px)')
+  const n = items.length
+  const speed = 0.022
+
+  let angle = 0
+  let active = 0
+  let paused = false
+  let raf = 0
+  let scrollSync = 0
+
+  const normalize = (deg) => ((deg % 360) + 360) % 360
+  const isMobile = () => mobileMQ.matches
+
+  const radii = () => {
+    const w = stage.clientWidth
+    const h = stage.clientHeight
+    return {
+      rx: Math.min(w * 0.42, 400),
+      ry: Math.min(h * 0.26, 155),
+      rz: Math.min(w * 0.28, 260),
+    }
   }
+
+  const setActive = (index) => {
+    active = ((index % n) + n) % n
+    jumps.forEach((btn, i) => btn.classList.toggle('is-active', i === active))
+    bars.forEach((bar, i) => bar.classList.toggle('is-active', i === active))
+    items.forEach((item, i) => item.classList.toggle('is-front', i === active))
+  }
+
+  const clearDesktopStyles = () => {
+    items.forEach((item) => {
+      item.style.transform = ''
+      item.style.opacity = ''
+      item.style.zIndex = ''
+      item.style.filter = ''
+      item.style.pointerEvents = ''
+      item.classList.remove('is-behind')
+    })
+  }
+
+  const renderDesktop = () => {
+    const { rx, ry, rz } = radii()
+
+    items.forEach((item, i) => {
+      const theta = ((angle + (i * 360) / n) * Math.PI) / 180
+      const x = Math.sin(theta) * rx
+      const y = Math.cos(theta) * ry
+      const z = Math.cos(theta) * rz
+      const depth = (z + rz) / (2 * rz)
+      const scale = 0.68 + depth * 0.4
+      const opacity = 0.35 + depth * 0.65
+      const blur = (1 - depth) * 0.9
+      const behindPlanet = depth < 0.48
+
+      item.style.transform = `translate3d(calc(-50% + ${x}px), calc(-50% + ${y}px), ${z}px) scale(${scale})`
+      item.style.opacity = String(opacity)
+      item.style.zIndex = behindPlanet
+        ? String(Math.round(2 + depth * 14))
+        : String(Math.round(22 + depth * 20))
+      item.style.filter = blur > 0.25 ? `blur(${blur.toFixed(2)}px)` : 'none'
+      item.style.pointerEvents = behindPlanet ? 'none' : 'auto'
+      item.classList.toggle('is-front', i === active)
+      item.classList.toggle('is-behind', behindPlanet)
+    })
+  }
+
+  const nearestMobileIndex = () => {
+    const mid = world.scrollLeft + world.clientWidth / 2
+    let best = 0
+    let bestDist = Infinity
+    items.forEach((item, i) => {
+      const center = item.offsetLeft + item.offsetWidth / 2
+      const dist = Math.abs(center - mid)
+      if (dist < bestDist) {
+        bestDist = dist
+        best = i
+      }
+    })
+    return best
+  }
+
+  const scrollToMobile = (index, smooth = true) => {
+    const target = items[((index % n) + n) % n]
+    if (!target) return
+    const left = target.offsetLeft - (world.clientWidth - target.offsetWidth) / 2
+    world.scrollTo({ left, behavior: smooth && !reduced ? 'smooth' : 'auto' })
+  }
+
+  const snapTo = (index) => {
+    const idx = ((index % n) + n) % n
+    setActive(idx)
+    if (isMobile() || reduced) {
+      clearDesktopStyles()
+      scrollToMobile(idx)
+      return
+    }
+    angle = normalize((-idx * 360) / n)
+    renderDesktop()
+  }
+
+  const syncActiveFromAngle = () => {
+    let best = 0
+    let bestScore = Infinity
+    for (let i = 0; i < n; i += 1) {
+      const worldAng = normalize(angle + (i * 360) / n)
+      const dist = Math.min(worldAng, 360 - worldAng)
+      if (dist < bestScore) {
+        bestScore = dist
+        best = i
+      }
+    }
+    if (best !== active) setActive(best)
+  }
+
+  const tick = () => {
+    if (!paused && !reduced && !isMobile()) {
+      angle = normalize(angle + speed)
+      renderDesktop()
+      syncActiveFromAngle()
+    }
+    raf = requestAnimationFrame(tick)
+  }
+
+  prev?.addEventListener('click', () => snapTo(active - 1))
+  next?.addEventListener('click', () => snapTo(active + 1))
+
+  jumps.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const idx = Number(btn.dataset.orbitJump)
+      if (Number.isFinite(idx)) snapTo(idx)
+    })
+  })
+
+  const setPaused = (value) => {
+    paused = value
+    root.classList.toggle('is-paused', value)
+  }
+
+  stage.addEventListener('mouseenter', () => {
+    if (!isMobile()) setPaused(true)
+  })
+  stage.addEventListener('mouseleave', () => {
+    if (!isMobile()) setPaused(false)
+  })
+  stage.addEventListener('focusin', () => {
+    if (!isMobile()) setPaused(true)
+  })
+  stage.addEventListener('focusout', (e) => {
+    if (!(e instanceof FocusEvent) || isMobile()) return
+    if (stage.contains(/** @type {Node} */ (e.relatedTarget))) return
+    setPaused(false)
+  })
+
+  world.addEventListener(
+    'scroll',
+    () => {
+      if (!isMobile()) return
+      window.clearTimeout(scrollSync)
+      scrollSync = window.setTimeout(() => {
+        const idx = nearestMobileIndex()
+        if (idx !== active) setActive(idx)
+      }, 60)
+    },
+    { passive: true },
+  )
+
+  const onModeChange = () => {
+    if (isMobile() || reduced) {
+      clearDesktopStyles()
+      setActive(active)
+      scrollToMobile(active, false)
+    } else {
+      angle = normalize((-active * 360) / n)
+      renderDesktop()
+    }
+  }
+
+  window.addEventListener('resize', () => {
+    if (isMobile()) scrollToMobile(active, false)
+    else renderDesktop()
+  }, { passive: true })
+
+  mobileMQ.addEventListener('change', onModeChange)
+
+  if (reduced && !isMobile()) {
+    root.classList.add('is-paused')
+    clearDesktopStyles()
+    setActive(0)
+    return
+  }
+
+  setActive(0)
+  onModeChange()
+  if (!reduced) raf = requestAnimationFrame(tick)
+
+  window.addEventListener(
+    'pagehide',
+    () => {
+      if (raf) cancelAnimationFrame(raf)
+      window.clearTimeout(scrollSync)
+    },
+    { once: true },
+  )
 }
 
 function initFloatCta() {
