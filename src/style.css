@@ -969,28 +969,6 @@ a {
   background: linear-gradient(118deg, transparent 40%, rgba(0, 0, 0, 0.4) 78%);
 }
 
-.orbit__ring,
-.orbit__ring--soft {
-  position: absolute;
-  left: 50%;
-  top: 46%;
-  width: min(76%, 580px);
-  height: min(40%, 260px);
-  translate: -50% -50%;
-  border-radius: 50%;
-  border: 1px solid rgba(165, 179, 197, 0.18);
-  pointer-events: none;
-  transform: rotateX(68deg);
-  z-index: 2;
-}
-
-.orbit__ring--soft {
-  width: min(90%, 720px);
-  height: min(48%, 320px);
-  border-style: dashed;
-  opacity: 0.5;
-}
-
 .orbit__world {
   position: absolute;
   inset: 0;
@@ -1245,8 +1223,6 @@ a {
   }
 
   .orbit__planet,
-  .orbit__ring,
-  .orbit__ring--soft,
   .orbit__space {
     display: none;
   }
