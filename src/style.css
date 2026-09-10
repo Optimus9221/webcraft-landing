@@ -149,7 +149,7 @@ a {
 .header {
   position: fixed;
   inset: 0 0 auto;
-  z-index: 50;
+  z-index: 80;
   height: var(--header-h);
   display: flex;
   align-items: center;
@@ -246,12 +246,14 @@ a {
   .nav__list {
     position: fixed;
     inset: var(--header-h) 0 auto;
+    z-index: 90;
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-    padding: 1rem 1.5rem 1.5rem;
-    background: rgba(18, 20, 24, 0.98);
+    padding: 0.75rem 1.25rem 1.35rem;
+    background: #121418;
     border-bottom: 1px solid var(--line);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
     transform: translateY(-8px);
     opacity: 0;
     pointer-events: none;
@@ -264,19 +266,26 @@ a {
     pointer-events: auto;
   }
 
+  .nav__list > li {
+    width: 100%;
+  }
+
   .nav__list a {
-    padding: 0.85rem 0;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.9rem 0;
     border-bottom: 1px solid var(--line);
   }
 
   .nav__list a.nav__cta {
-    margin-top: 0.85rem;
-    padding: 0.9rem 1rem;
+    margin-top: 0.95rem;
+    padding: 0.95rem 1rem;
     border-bottom: none;
     border-radius: 12px;
     text-align: center;
-    width: 100%;
-    box-sizing: border-box;
+    background: var(--text);
+    color: var(--bg) !important;
   }
 
   body.nav-open {
